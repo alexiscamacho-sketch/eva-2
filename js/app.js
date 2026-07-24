@@ -38,32 +38,15 @@ const cities = [
 ];
 
 const weatherCodeMap = {
-  0: 'Despejado',
-  1: 'Mayormente despejado',
-  2: 'Parcialmente nublado',
-  3: 'Nublado',
-  45: 'Niebla',
-  48: 'Niebla escarchada',
-  51: 'Llovizna ligera',
-  53: 'Llovizna moderada',
-  55: 'Llovizna intensa',
-  61: 'Lluvia ligera',
-  63: 'Lluvia moderada',
-  65: 'Lluvia intensa',
-  71: 'Nieve ligera',
-  73: 'Nieve moderada',
-  75: 'Nieve intensa',
-  80: 'Chubascos ligeros',
-  81: 'Chubascos moderados',
-  82: 'Chubascos intensos',
-  95: 'Tormenta'
+  0: 'Despejado', 1: 'Mayormente despejado', 2: 'Parcialmente nublado', 3: 'Nublado',
+  45: 'Niebla', 48: 'Niebla escarchada', 51: 'Llovizna ligera', 53: 'Llovizna moderada',
+  55: 'Llovizna intensa', 61: 'Lluvia ligera', 63: 'Lluvia moderada', 65: 'Lluvia intensa',
+  71: 'Nieve ligera', 73: 'Nieve moderada', 75: 'Nieve intensa', 80: 'Chubascos ligeros',
+  81: 'Chubascos moderados', 82: 'Chubascos intensos', 95: 'Tormenta'
 };
 
 function formatDate(value) {
-  return new Date(value).toLocaleString('es-CL', {
-    dateStyle: 'short',
-    timeStyle: 'short'
-  });
+  return new Date(value).toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' });
 }
 
 function formatMoney(value) {
@@ -77,13 +60,13 @@ function setStatus(message, ok = true) {
 }
 
 function buildCakeSummary() {
-  const nombre = els.clienteNombre.value.trim();
-  const telefono = els.clienteTelefono.value.trim();
-  const sabor = els.pedidoSabor.value;
-  const tipo = els.pedidoTipo.value;
-  const fecha = els.pedidoFecha.value;
-  const personas = els.pedidoPersonas.value;
-  const detalle = els.pedidoDetalle.value.trim();
+  const nombre = els.clienteNombre?.value.trim();
+  const telefono = els.clienteTelefono?.value.trim();
+  const sabor = els.pedidoSabor?.value;
+  const tipo = els.pedidoTipo?.value;
+  const fecha = els.pedidoFecha?.value;
+  const personas = els.pedidoPersonas?.value;
+  const detalle = els.pedidoDetalle?.value.trim();
 
   if (!nombre || !telefono || !sabor || !tipo || !fecha || !personas) return null;
 
@@ -115,15 +98,15 @@ function renderWeatherCard(city, current) {
 }
 
 async function loadWeather() {
+  if (!els.weatherGrid) return;
   els.weatherGrid.innerHTML = '<div class="weather-card loading">Cargando clima...</div>';
   try {
-    const requests = cities.map(city => {
+    const requests = cities.map(async city => {
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`;
-      return fetch(url).then(async res => {
-        if (!res.ok) throw new Error(`Clima no disponible para ${city.name}`);
-        const data = await res.json();
-        return { city, current: data.current };
-      });
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Clima no disponible para ${city.name}`);
+      const data = await res.json();
+      return { city, current: data.current };
     });
     const results = await Promise.all(requests);
     els.weatherGrid.innerHTML = results.map(item => renderWeatherCard(item.city, item.current)).join('');
@@ -133,6 +116,7 @@ async function loadWeather() {
 }
 
 async function loadDollar() {
+  if (!els.dollarCard) return;
   els.dollarCard.className = 'metric-body loading';
   els.dollarCard.innerHTML = 'Cargando indicador económico...';
   try {
@@ -155,6 +139,7 @@ async function loadDollar() {
 }
 
 async function loadHolidays() {
+  if (!els.holidaysCard) return;
   els.holidaysCard.className = 'metric-body loading';
   els.holidaysCard.textContent = 'Cargando feriados...';
   try {
@@ -181,26 +166,29 @@ async function loadHolidays() {
 }
 
 async function loadAll() {
-  els.reloadBtn.disabled = true;
-  els.reloadBtn.textContent = 'Actualizando...';
+  if (els.reloadBtn) {
+    els.reloadBtn.disabled = true;
+    els.reloadBtn.textContent = 'Actualizando...';
+  }
   await Promise.allSettled([loadWeather(), loadDollar(), loadHolidays()]);
-  els.updatedAt.textContent = formatDate(Date.now());
-  els.reloadBtn.disabled = false;
-  els.reloadBtn.textContent = 'Actualizar datos';
+  if (els.updatedAt) els.updatedAt.textContent = formatDate(Date.now());
+  if (els.reloadBtn) {
+    els.reloadBtn.disabled = false;
+    els.reloadBtn.textContent = 'Actualizar datos';
+  }
 }
 
 function initCakeModal() {
   els.openCakeModal?.addEventListener('click', () => {
-    els.cakeModal.showModal();
+    els.cakeModal?.showModal();
     setStatus('');
   });
 
-  els.closeCakeModal?.addEventListener('click', () => els.cakeModal.close());
+  els.closeCakeModal?.addEventListener('click', () => els.cakeModal?.close());
 
   els.copyCakeOrder?.addEventListener('click', async () => {
     const summary = buildCakeSummary();
     if (!summary) return setStatus('Completa nombre, teléfono, sabor, tipo, fecha y cantidad antes de copiar.', false);
-
     try {
       await navigator.clipboard.writeText(summary);
       setStatus('Resumen copiado. Ya puedes pegarlo en WhatsApp o Telegram.');
@@ -217,16 +205,16 @@ function initCakeModal() {
 }
 
 async function initFirebase() {
+  if (!els.googleLoginBtn || !els.logoutBtn || !els.authMessage) return;
   try {
     const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
     const { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-
     initializeApp(firebaseConfig);
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
 
-    els.googleLoginBtn?.addEventListener('click', async () => {
+    els.googleLoginBtn.addEventListener('click', async () => {
       try {
         await signInWithPopup(auth, provider);
       } catch (error) {
@@ -234,7 +222,7 @@ async function initFirebase() {
       }
     });
 
-    els.logoutBtn?.addEventListener('click', async () => {
+    els.logoutBtn.addEventListener('click', async () => {
       try {
         await signOut(auth);
       } catch (error) {
@@ -254,7 +242,7 @@ async function initFirebase() {
 
     els.authMessage.textContent = 'Firebase listo. Ya puedes iniciar sesión con Google.';
   } catch (error) {
-    if (els.authMessage) els.authMessage.textContent = 'Falta configurar Firebase o hubo un error: ' + error.message;
+    els.authMessage.textContent = 'Falta configurar Firebase o hubo un error: ' + error.message;
   }
 }
 
