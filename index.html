@@ -59,21 +59,31 @@
       </div>
       <div class="toolbar">
         <div>
-          <h3>Acceso con Firebase</h3>
-          <p id="authMessage">Inicia sesión con Google para guardar pedidos.</p>
+          <h3>Datos del panel</h3>
+          <p>Clima, dólar y feriados se cargan automáticamente.</p>
         </div>
         <div class="meta-grid">
-          <button id="googleLoginBtn" class="btn-primary">Continuar con Google</button>
-          <button id="logoutBtn" class="btn-alt" hidden>Cerrar sesión</button>
           <div><span class="meta-label">Última actualización</span><strong id="updatedAt">Cargando...</strong></div>
           <button class="reload-btn" type="button" id="reloadBtn">Actualizar datos</button>
         </div>
       </div>
-      <div id="weatherGrid" class="weather-grid"></div>
+
       <div class="dashboard-grid">
+        <article class="dashboard-card login-card">
+          <h3>Acceso con Firebase</h3>
+          <p id="authMessage">Inicia sesión con Google para guardar pedidos.</p>
+          <div class="login-actions">
+            <button id="googleLoginBtn" class="btn-primary">Continuar con Google</button>
+            <button id="logoutBtn" class="btn-alt" hidden>Cerrar sesión</button>
+          </div>
+        </article>
+
         <article class="dashboard-card"><h3>Dólar observado</h3><div class="metric-body loading" id="dollarCard">Cargando indicador económico...</div></article>
         <article class="dashboard-card"><h3>Próximos feriados</h3><div class="metric-body loading" id="holidaysCard">Cargando feriados...</div></article>
       </div>
+
+      <div id="weatherGrid" class="weather-grid"></div>
+
       <div class="sources">
         <h3>Fuentes</h3>
         <ul>
@@ -83,6 +93,7 @@
         </ul>
       </div>
     </section>
+
     <footer class="site-footer"><p>Proyecto académico de programación back end aplicado a negocios familiares reales.</p></footer>
   </div>
 
