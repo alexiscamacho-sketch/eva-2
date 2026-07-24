@@ -8,163 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream: #FFF8F0;
-      --warm-white: #FFFDF9;
-      --rose: #C9566A;
-      --rose-dark: #9E3A4E;
-      --rose-light: #E8899A;
-      --caramel: #C47C2B;
-      --caramel-light: #E8A84B;
-      --chocolate: #3D1A0E;
-      --text-dark: #2C1810;
-      --text-mid: #6B3A2A;
-      --ps-bg: #0A0A1A;
-      --ps-neon: #00C8FF;
-      --ps-purple-light: #A855F7;
-      --ps-text: #E8EEFF;
-      --ps-muted: rgba(232,238,255,0.72);
-      --dashboard-bg: #0f172a;
-      --dashboard-surface: rgba(255,255,255,.05);
-      --dashboard-border: rgba(255,255,255,.1);
-      --dashboard-text: #f8fafc;
-      --dashboard-muted: #cbd5e1;
-      --dashboard-primary: #38bdf8;
-      --dashboard-success: #4ade80;
-      --dashboard-danger: #f87171;
-      --shadow-soft: 0 20px 60px rgba(60,20,10,.16);
-      --shadow-dark: 0 20px 50px rgba(0,0,0,.35);
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #fffaf5 0%, #fff3eb 100%); color: var(--text-dark); line-height: 1.6; padding: 18px; }
-    a { text-decoration: none; }
-    .site-wrapper { width: min(1180px, 100%); margin: 0 auto; display: grid; gap: 24px; }
-    .hero-top { background: linear-gradient(135deg, #fff8f0, #fff2e8); border: 1px solid rgba(158,58,78,.12); border-radius: 28px; padding: 28px; box-shadow: 0 12px 40px rgba(140,70,40,.08); display: flex; justify-content: space-between; gap: 20px; align-items: center; flex-wrap: wrap; }
-    .hero-top h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.05; color: var(--rose-dark); margin-bottom: 8px; }
-    .hero-top p { max-width: 70ch; color: var(--text-mid); }
-    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    .hero-badge { padding: 8px 14px; border-radius: 999px; background: #fff; border: 1px solid rgba(158,58,78,.12); font-size: .92rem; color: var(--rose-dark); font-weight: 600; }
-    .nav-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .nav-links a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 700; }
-    .btn-main { background: var(--rose-dark); color: #fff; }
-    .btn-alt { background: #fff; color: var(--rose-dark); border: 1px solid rgba(158,58,78,.18); }
-    .panel { border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-soft); }
-    .cake-panel { background: var(--warm-white); }
-    .top-band { background: var(--rose-dark); padding: 10px 30px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .top-band .line { flex: 1; height: 1px; background: rgba(255,255,255,.35); }
-    .top-band span { color: rgba(255,255,255,.85); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
-    .hero { background: linear-gradient(160deg, var(--rose-dark) 0%, var(--rose) 60%, var(--caramel) 100%); padding: 44px 36px 36px; text-align: center; position: relative; overflow: hidden; }
-    .hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; background: rgba(255,255,255,.05); }
-    .hero::before { top: -50px; right: -50px; width: 220px; height: 220px; }
-    .hero::after { bottom: -70px; left: -30px; width: 180px; height: 180px; }
-    .cake-icon { font-size: 60px; margin-bottom: 14px; display: block; }
-    .brand-name { font-family: 'Playfair Display', serif; font-size: clamp(2.3rem, 5vw, 3.2rem); font-weight: 900; color: #fff; line-height: 1.05; }
-    .brand-name em { color: var(--caramel-light); font-style: italic; }
-    .slogan { margin-top: 10px; font-size: 13px; color: rgba(255,255,255,.86); letter-spacing: 1.4px; text-transform: uppercase; }
-    .body-block { padding: 28px 30px 30px; }
-    .divider { display: flex; align-items: center; gap: 12px; margin: 12px 0 18px; }
-    .divider .bar { flex: 1; height: 1px; background: #ead7ca; }
-    .divider .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--caramel); }
-    .intro { text-align: center; margin-bottom: 22px; font-size: 14px; color: var(--text-mid); font-style: italic; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--rose-dark); letter-spacing: 2.4px; text-transform: uppercase; margin-bottom: 14px; }
-    .flavors-grid, .pricing-grid, .business-summary { display: grid; gap: 10px; }
-    .flavors-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .flavor-item { background: linear-gradient(135deg, #FFF5EE, #FFF0E8); border: 1px solid #F0D8C8; border-radius: 12px; padding: 10px 12px; font-size: 14px; color: var(--text-dark); font-weight: 500; }
-    .flavor-item.special { border-color: var(--caramel-light); background: linear-gradient(135deg, #FFF8EC, #FFF2DC); position: relative; padding-right: 72px; }
-    .flavor-item.special::after { content: '+$5.000'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--caramel); font-weight: 800; }
-    .pricing-grid { grid-template-columns: repeat(2, minmax(0,1fr)); margin-top: 10px; }
-    .price-card { border-radius: 16px; padding: 18px 14px; text-align: center; }
-    .price-card.classic { background: linear-gradient(135deg, #FFF5EE, #F9E8D8); border: 1.5px solid #E8C9A8; }
-    .price-card.photo { background: linear-gradient(135deg, #FFF0F3, #F9D8DF); border: 1.5px solid #E8A8B8; }
-    .price-label { font-size: 12px; text-transform: uppercase; font-weight: 800; color: var(--text-mid); margin-bottom: 8px; }
-    .price-value { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; color: var(--rose-dark); line-height: 1; margin-bottom: 4px; }
-    .price-card.classic .price-value { color: var(--caramel); }
-    .price-sub { font-size: 12px; color: var(--text-mid); opacity: .8; }
-    .custom-box { background: linear-gradient(135deg, var(--rose-dark), var(--rose)); border-radius: 16px; padding: 16px 18px; margin-top: 22px; color: #fff; display: flex; gap: 12px; align-items: center; }
-    .custom-box strong { display: block; margin-bottom: 3px; font-size: 14px; }
-    .custom-box span { font-size: 12.5px; opacity: .88; }
-    .business-summary { grid-template-columns: repeat(3, minmax(0,1fr)); margin-top: 22px; }
-    .mini-card { background: #fff7f1; border: 1px solid #f0d8c8; border-radius: 14px; padding: 14px; }
-    .mini-card strong { display: block; color: var(--rose-dark); margin-bottom: 4px; }
-    .contact-section { background: var(--chocolate); padding: 22px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
-    .contact-section .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 4px; }
-    .contact-section .phone { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--caramel-light); font-weight: 700; }
-    .contact-section .sub { color: rgba(255,255,255,.6); font-size: 12px; }
-    .contact-btn { border: none; border-radius: 10px; padding: 12px 18px; background: var(--rose); color: #fff; font-weight: 800; cursor: pointer; min-height: 44px; }
-    .playshop-panel { background: var(--ps-bg); color: var(--ps-text); position: relative; overflow: hidden; box-shadow: var(--shadow-dark); }
-    .playshop-panel::before, .playshop-panel::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; }
-    .playshop-panel::before { top: -70px; right: -70px; width: 240px; height: 240px; background: radial-gradient(circle, rgba(0,200,255,.08) 0%, transparent 70%); }
-    .playshop-panel::after { bottom: -60px; left: -50px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(123,47,190,.14) 0%, transparent 70%); }
-    .ps-section { padding: 30px; position: relative; z-index: 1; }
-    .ps-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-    .ps-logo-icon { font-size: 40px; }
-    .ps-brand-name { font-size: 32px; font-weight: 900; color: #fff; line-height: 1; }
-    .ps-brand-name span { color: var(--ps-neon); text-shadow: 0 0 12px rgba(0,200,255,.45); }
-    .ps-brand-sub { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--ps-muted); margin-top: 4px; }
-    .ps-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,200,255,.3), rgba(123,47,190,.3), transparent); margin-bottom: 20px; }
-    .ps-platforms { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-bottom: 16px; }
-    .ps-card { border-radius: 16px; padding: 16px 14px; text-align: center; border: 1px solid rgba(255,255,255,.08); }
-    .ps-card.psn { background: linear-gradient(135deg, #001B40, #003070); border-color: rgba(0,112,209,.45); }
-    .ps-card.nintendo { background: linear-gradient(135deg, #1A0005, #3A0010); border-color: rgba(228,0,58,.45); }
-    .ps-card-icon { display: block; font-size: 32px; margin-bottom: 8px; }
-    .ps-card-name { font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-    .ps-card.psn .ps-card-name { color: var(--ps-neon); }
-    .ps-card.nintendo .ps-card-name { color: #ff8ba0; }
-    .ps-card-desc { font-size: 12px; color: var(--ps-muted); line-height: 1.5; }
-    .ps-features { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-    .ps-badge { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); border-radius: 999px; padding: 6px 12px; font-size: 11px; color: var(--ps-muted); }
-    .ps-cta { background: linear-gradient(135deg, rgba(0,200,255,.08), rgba(123,47,190,.12)); border: 1px solid rgba(0,200,255,.18); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .ps-cta-icon { font-size: 26px; }
-    .ps-cta-text { flex: 1; min-width: 220px; }
-    .ps-cta-text strong { display: block; font-size: 14px; color: #fff; margin-bottom: 2px; }
-    .ps-cta-text span { color: var(--ps-muted); font-size: 12px; }
-    .ps-tg-btn { background: linear-gradient(135deg, var(--ps-neon), var(--ps-purple-light)); color: #fff; border: none; border-radius: 10px; padding: 11px 16px; min-height: 44px; font-weight: 800; cursor: pointer; }
-    .dashboard-panel { background: linear-gradient(180deg, #0f172a 0%, #111827 100%); color: var(--dashboard-text); border-radius: 28px; padding: 28px; box-shadow: var(--shadow-dark); }
-    .dashboard-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
-    .dashboard-top h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 6px; }
-    .dashboard-top p { color: var(--dashboard-muted); max-width: 65ch; }
-    .reload-btn { border: none; min-height: 44px; border-radius: 12px; padding: 12px 16px; font-weight: 800; cursor: pointer; background: linear-gradient(135deg, var(--dashboard-primary), #818cf8); color: #04111f; }
-    .toolbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; background: rgba(255,255,255,.04); border: 1px solid var(--dashboard-border); border-radius: 20px; padding: 18px; margin-bottom: 18px; }
-    .meta-label { display: block; color: var(--dashboard-muted); font-size: .85rem; margin-bottom: .15rem; }
-    .meta-grid { display: flex; gap: 18px; align-items: end; flex-wrap: wrap; }
-    .weather-grid, .dashboard-grid { display: grid; gap: 16px; }
-    .weather-grid { grid-template-columns: repeat(3, minmax(0,1fr)); margin-bottom: 18px; }
-    .dashboard-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .dashboard-card, .weather-card { background: var(--dashboard-surface); border: 1px solid var(--dashboard-border); border-radius: 20px; padding: 18px; }
-    .weather-city { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.06); color: var(--dashboard-muted); font-size: .9rem; margin-bottom: 10px; }
-    .temp { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
-    .details { color: var(--dashboard-muted); display: grid; gap: 6px; font-size: .95rem; }
-    .metric-body { min-height: 140px; display: grid; align-content: start; gap: 10px; }
-    .metric-value { font-size: 2rem; font-weight: 900; }
-    .list-clean { list-style: none; display: grid; gap: 10px; }
-    .loading { color: var(--dashboard-muted); }
-    .success { color: var(--dashboard-success); }
-    .error { color: var(--dashboard-danger); }
-    .sources { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); }
-    .sources ul { padding-left: 18px; color: var(--dashboard-muted); }
-    .sources a { color: #93c5fd; }
-    .site-footer { text-align: center; color: var(--text-mid); font-size: 14px; padding-top: 6px; }
-    .cake-modal { border: none; border-radius: 20px; padding: 0; width: min(680px, calc(100% - 24px)); background: #fffaf5; color: var(--text-dark); box-shadow: 0 30px 80px rgba(0,0,0,.28); }
-    .cake-modal::backdrop { background: rgba(15, 23, 42, 0.7); }
-    .cake-form { padding: 22px; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .modal-head h3 { font-family: 'Playfair Display', serif; color: var(--rose-dark); font-size: 1.8rem; }
-    .modal-close { border: none; background: transparent; font-size: 1.2rem; cursor: pointer; min-width: 44px; min-height: 44px; }
-    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
-    .form-grid label { display: grid; gap: 6px; font-size: .95rem; font-weight: 600; }
-    .form-grid label span { color: var(--rose-dark); }
-    .form-grid input, .form-grid select, .form-grid textarea { width: 100%; border: 1px solid #e7cbbb; border-radius: 12px; padding: 12px 14px; font: inherit; background: #fff; }
-    .form-grid .full { grid-column: 1 / -1; }
-    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; margin-top: 18px; }
-    .btn-primary-modal, .btn-secondary-modal { border: none; min-height: 44px; padding: 12px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-    .btn-primary-modal { background: var(--rose-dark); color: white; }
-    .btn-secondary-modal { background: #f6e8de; color: var(--rose-dark); }
-    .cake-form-status { margin-top: 12px; color: var(--text-mid); font-size: .92rem; }
-    @media (max-width: 900px) { .weather-grid, .dashboard-grid, .ps-platforms, .pricing-grid, .flavors-grid, .business-summary { grid-template-columns: 1fr; } }
-    @media (max-width: 720px) { body { padding: 10px; } .hero-top, .body-block, .ps-section, .dashboard-panel { padding: 20px; } .hero { padding: 34px 22px 28px; } .contact-section { padding: 20px; } .form-grid { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="site-wrapper">
@@ -176,6 +20,7 @@
       </div>
       <div class="nav-links"><a class="btn-main" href="#tortas">Ver pastelería</a><a class="btn-alt" href="#playshop">Ver PlayShop</a><a class="btn-alt" href="#dashboard">Ver dashboard</a></div>
     </section>
+
     <section class="panel cake-panel" id="tortas">
       <div class="top-band"><div class="line"></div><span>Pastelería artesanal</span><div class="line"></div></div>
       <div class="hero"><span class="cake-icon">🎂</span><div class="brand-name">La Torta<br>de <em>Mamá</em></div><div class="slogan">Cada mordida, un recuerdo dulce</div></div>
@@ -194,6 +39,7 @@
       </div>
       <div class="contact-section"><div><div class="label">Pedidos & consultas</div><div class="phone">975 519 080</div><div class="sub">Atención directa y coordinación por mensaje</div></div><button class="contact-btn" type="button" id="openCakeModal">Hacer pedido</button></div>
     </section>
+
     <section class="panel playshop-panel" id="playshop">
       <div class="ps-section">
         <div class="ps-header"><div class="ps-logo-icon">🎮</div><div><div class="ps-brand-name">Play<span>Shop</span></div><div class="ps-brand-sub">Códigos digitales al instante</div></div></div>
@@ -203,15 +49,43 @@
         <div class="ps-cta"><div class="ps-cta-icon">📲</div><div class="ps-cta-text"><strong>Canal oficial en Telegram</strong><span>Consulta stock, disponibilidad y precios por mensaje directo.</span></div><a class="ps-tg-btn" href="https://t.me/aloxor?text=Hola%20quiero%20consultar%20stock%20de%20codigos%20digitales" target="_blank" rel="noopener noreferrer">@aloxor</a></div>
       </div>
     </section>
+
     <section class="dashboard-panel" id="dashboard">
-      <div class="dashboard-top"><div><h2>Dashboard en tiempo real</h2><p>Consumo de APIs públicas para mostrar clima actual, valor del dólar observado y próximos feriados de Chile.</p></div></div>
-      <div class="toolbar"><div><h3>Datos consultados</h3><p>Clima para Calama, Antofagasta y Santiago; dólar observado y feriados de Chile.</p></div><div class="meta-grid"><div><span class="meta-label">Última actualización</span><strong id="updatedAt">Cargando...</strong></div><button class="reload-btn" type="button" id="reloadBtn">Actualizar datos</button></div></div>
+      <div class="dashboard-top">
+        <div>
+          <h2>Dashboard en tiempo real</h2>
+          <p>Consumo de APIs públicas para mostrar clima actual, valor del dólar observado y próximos feriados de Chile.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div>
+          <h3>Acceso con Firebase</h3>
+          <p id="authMessage">Inicia sesión con Google para guardar pedidos.</p>
+        </div>
+        <div class="meta-grid">
+          <button id="googleLoginBtn" class="btn-primary">Continuar con Google</button>
+          <button id="logoutBtn" class="btn-alt" hidden>Cerrar sesión</button>
+          <div><span class="meta-label">Última actualización</span><strong id="updatedAt">Cargando...</strong></div>
+          <button class="reload-btn" type="button" id="reloadBtn">Actualizar datos</button>
+        </div>
+      </div>
       <div id="weatherGrid" class="weather-grid"></div>
-      <div class="dashboard-grid"><article class="dashboard-card"><h3>Dólar observado</h3><div class="metric-body loading" id="dollarCard">Cargando indicador económico...</div></article><article class="dashboard-card"><h3>Próximos feriados</h3><div class="metric-body loading" id="holidaysCard">Cargando feriados...</div></article></div>
-      <div class="sources"><h3>Fuentes</h3><ul><li><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></li><li><a href="https://mindicador.cl/api" target="_blank" rel="noopener noreferrer">mindicador.cl</a></li><li><a href="https://date.nager.at/api" target="_blank" rel="noopener noreferrer">Nager.Date</a></li></ul></div>
+      <div class="dashboard-grid">
+        <article class="dashboard-card"><h3>Dólar observado</h3><div class="metric-body loading" id="dollarCard">Cargando indicador económico...</div></article>
+        <article class="dashboard-card"><h3>Próximos feriados</h3><div class="metric-body loading" id="holidaysCard">Cargando feriados...</div></article>
+      </div>
+      <div class="sources">
+        <h3>Fuentes</h3>
+        <ul>
+          <li><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></li>
+          <li><a href="https://mindicador.cl/api" target="_blank" rel="noopener noreferrer">mindicador.cl</a></li>
+          <li><a href="https://date.nager.at/api" target="_blank" rel="noopener noreferrer">Nager.Date</a></li>
+        </ul>
+      </div>
     </section>
     <footer class="site-footer"><p>Proyecto académico de programación back end aplicado a negocios familiares reales.</p></footer>
   </div>
+
   <dialog id="cakeModal" class="cake-modal">
     <form id="cakeForm" class="cake-form" method="dialog">
       <div class="modal-head"><h3>Pedido de torta</h3><button type="button" class="modal-close" id="closeCakeModal">✕</button></div>
@@ -228,19 +102,7 @@
       <p id="cakeFormStatus" class="cake-form-status"></p>
     </form>
   </dialog>
-  <script>
-    const cities=[{name:'Calama',latitude:-22.4567,longitude:-68.9237},{name:'Antofagasta',latitude:-23.6509,longitude:-70.3975},{name:'Santiago',latitude:-33.4489,longitude:-70.6693}];
-    const weatherGrid=document.getElementById('weatherGrid'); const dollarCard=document.getElementById('dollarCard'); const holidaysCard=document.getElementById('holidaysCard'); const updatedAt=document.getElementById('updatedAt'); const reloadBtn=document.getElementById('reloadBtn');
-    const cakeModal=document.getElementById('cakeModal'); const openCakeModal=document.getElementById('openCakeModal'); const closeCakeModal=document.getElementById('closeCakeModal'); const copyCakeOrder=document.getElementById('copyCakeOrder'); const sendCakeWhatsapp=document.getElementById('sendCakeWhatsapp'); const cakeFormStatus=document.getElementById('cakeFormStatus');
-    const weatherCodeMap={0:'Despejado',1:'Mayormente despejado',2:'Parcialmente nublado',3:'Nublado',45:'Niebla',48:'Niebla escarchada',51:'Llovizna ligera',53:'Llovizna moderada',55:'Llovizna intensa',61:'Lluvia ligera',63:'Lluvia moderada',65:'Lluvia intensa',71:'Nieve ligera',73:'Nieve moderada',75:'Nieve intensa',80:'Chubascos ligeros',81:'Chubascos moderados',82:'Chubascos intensos',95:'Tormenta'};
-    function formatDate(value){return new Date(value).toLocaleString('es-CL',{dateStyle:'short',timeStyle:'short'});} 
-    function buildCakeSummary(){const nombre=document.getElementById('clienteNombre').value.trim(); const telefono=document.getElementById('clienteTelefono').value.trim(); const sabor=document.getElementById('pedidoSabor').value; const tipo=document.getElementById('pedidoTipo').value; const fecha=document.getElementById('pedidoFecha').value; const personas=document.getElementById('pedidoPersonas').value; const detalle=document.getElementById('pedidoDetalle').value.trim(); if(!nombre||!telefono||!sabor||!tipo||!fecha||!personas){return null;} return ['Hola, quiero hacer un pedido en La Torta de Mamá:','',`Nombre: ${nombre}`,`Teléfono: ${telefono}`,`Sabor: ${sabor}`,`Tipo: ${tipo}`,`Fecha de entrega: ${fecha}`,`Cantidad de personas: ${personas}`,`Detalles: ${detalle||'Sin detalles adicionales'}`].join('\n');}
-    function renderWeatherCard(city,current){const condition=weatherCodeMap[current.weather_code]||'Condición no disponible'; return `<article class="weather-card"><div class="weather-city">📍 ${city.name}</div><div class="temp">${Math.round(current.temperature_2m)}°C</div><div class="details"><span><strong>Estado:</strong> ${condition}</span><span><strong>Viento:</strong> ${current.wind_speed_10m} km/h</span><span><strong>Hora API:</strong> ${formatDate(current.time)}</span></div></article>`;}
-    async function loadWeather(){weatherGrid.innerHTML='<div class="weather-card loading">Cargando clima...</div>'; try {const requests=cities.map(city=>{const url=`https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`; return fetch(url).then(async res=>{if(!res.ok) throw new Error(`Clima no disponible para ${city.name}`); const data=await res.json(); return {city,current:data.current};});}); const results=await Promise.all(requests); weatherGrid.innerHTML=results.map(item=>renderWeatherCard(item.city,item.current)).join('');} catch(error){weatherGrid.innerHTML=`<div class="weather-card error">No se pudo cargar el clima. ${error.message}</div>`;}}
-    async function loadDollar(){dollarCard.className='metric-body loading'; dollarCard.innerHTML='Cargando indicador económico...'; try {const res=await fetch('https://mindicador.cl/api/dolar'); if(!res.ok) throw new Error('Respuesta inválida del servicio económico'); const data=await res.json(); const latest=data.serie?.[0]; if(!latest) throw new Error('Sin datos del dólar'); dollarCard.className='metric-body'; dollarCard.innerHTML=`<div class="metric-value">$${Number(latest.valor).toLocaleString('es-CL')}</div><div class="details"><span><strong>Fecha del indicador:</strong> ${formatDate(latest.fecha)}</span><span class="success">Datos cargados correctamente.</span></div>`;} catch(error){dollarCard.className='metric-body error'; dollarCard.innerHTML=`<div>No se pudo cargar el dólar automáticamente.</div><div class="details"><span>Motivo: ${error.message}</span><span>Prueba el sitio publicado en Netlify; algunos navegadores bloquean peticiones cross-origin locales.</span></div>`;}}
-    async function loadHolidays(){holidaysCard.className='metric-body loading'; holidaysCard.textContent='Cargando feriados...'; try {const year=new Date().getFullYear(); const res=await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/CL`); if(!res.ok) throw new Error('Respuesta inválida del servicio de feriados'); const data=await res.json(); const today=new Date(); const baseDate=new Date(today.toISOString().slice(0,10)); const upcoming=data.filter(item=>new Date(item.date+'T00:00:00')>=baseDate).slice(0,4); if(!upcoming.length) throw new Error('No hay feriados próximos'); holidaysCard.className='metric-body'; holidaysCard.innerHTML=`<ul class="list-clean">${upcoming.map(item=>`<li><strong>${item.localName}</strong><br><span class="details">${new Date(item.date+'T00:00:00').toLocaleDateString('es-CL')}</span></li>`).join('')}</ul>`;} catch(error){holidaysCard.className='metric-body error'; holidaysCard.textContent=`No se pudieron cargar los feriados. ${error.message}`;}}
-    async function loadAll(){reloadBtn.disabled=true; reloadBtn.textContent='Actualizando...'; await Promise.allSettled([loadWeather(), loadDollar(), loadHolidays()]); updatedAt.textContent=formatDate(Date.now()); reloadBtn.disabled=false; reloadBtn.textContent='Actualizar datos';}
-    openCakeModal.addEventListener('click',()=>{cakeModal.showModal(); cakeFormStatus.textContent='';}); closeCakeModal.addEventListener('click',()=>cakeModal.close()); copyCakeOrder.addEventListener('click',async()=>{const summary=buildCakeSummary(); if(!summary){cakeFormStatus.textContent='Completa nombre, teléfono, sabor, tipo, fecha y cantidad antes de copiar.'; return;} try {await navigator.clipboard.writeText(summary); cakeFormStatus.textContent='Resumen copiado. Ya puedes pegarlo en WhatsApp o Telegram.';} catch(error){cakeFormStatus.textContent='No se pudo copiar automáticamente. Revisa permisos del navegador.';}}); sendCakeWhatsapp.addEventListener('click',()=>{const summary=buildCakeSummary(); if(!summary){cakeFormStatus.textContent='Completa los campos obligatorios antes de enviar.'; return;} const whatsappUrl=`https://wa.me/56975519080?text=${encodeURIComponent(summary)}`; window.open(whatsappUrl,'_blank','noopener,noreferrer');}); reloadBtn.addEventListener('click',loadAll); loadAll();
-  </script>
+
+  <script src="./app.js"></script>
 </body>
 </html>
