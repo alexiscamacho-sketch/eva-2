@@ -38,15 +38,32 @@ const cities = [
 ];
 
 const weatherCodeMap = {
-  0: 'Despejado', 1: 'Mayormente despejado', 2: 'Parcialmente nublado', 3: 'Nublado',
-  45: 'Niebla', 48: 'Niebla escarchada', 51: 'Llovizna ligera', 53: 'Llovizna moderada',
-  55: 'Llovizna intensa', 61: 'Lluvia ligera', 63: 'Lluvia moderada', 65: 'Lluvia intensa',
-  71: 'Nieve ligera', 73: 'Nieve moderada', 75: 'Nieve intensa', 80: 'Chubascos ligeros',
-  81: 'Chubascos moderados', 82: 'Chubascos intensos', 95: 'Tormenta'
+  0: 'Despejado',
+  1: 'Mayormente despejado',
+  2: 'Parcialmente nublado',
+  3: 'Nublado',
+  45: 'Niebla',
+  48: 'Niebla escarchada',
+  51: 'Llovizna ligera',
+  53: 'Llovizna moderada',
+  55: 'Llovizna intensa',
+  61: 'Lluvia ligera',
+  63: 'Lluvia moderada',
+  65: 'Lluvia intensa',
+  71: 'Nieve ligera',
+  73: 'Nieve moderada',
+  75: 'Nieve intensa',
+  80: 'Chubascos ligeros',
+  81: 'Chubascos moderados',
+  82: 'Chubascos intensos',
+  95: 'Tormenta'
 };
 
 function formatDate(value) {
-  return new Date(value).toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' });
+  return new Date(value).toLocaleString('es-CL', {
+    dateStyle: 'short',
+    timeStyle: 'short'
+  });
 }
 
 function formatMoney(value) {
@@ -84,14 +101,14 @@ function buildCakeSummary() {
 }
 
 function renderWeatherCard(city, current) {
-  const condition = weatherCodeMap[current.weather_code] || 'Condición no disponible';
+  const condition = weatherCodeMap[current.weathercode] || 'Condición no disponible';
   return `
     <article class="weather-card">
       <div class="weather-city">📍 ${city.name}</div>
       <div class="temp">${Math.round(current.temperature_2m)}°C</div>
       <div class="details">
         <span><strong>Estado:</strong> ${condition}</span>
-        <span><strong>Viento:</strong> ${current.wind_speed_10m} km/h</span>
+        <span><strong>Viento:</strong> ${current.windspeed10m} km/h</span>
         <span><strong>Hora API:</strong> ${formatDate(current.time)}</span>
       </div>
     </article>`;
@@ -102,7 +119,7 @@ async function loadWeather() {
   els.weatherGrid.innerHTML = '<div class="weather-card loading">Cargando clima...</div>';
   try {
     const requests = cities.map(async city => {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,weathercode,windspeed10m&timezone=auto`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Clima no disponible para ${city.name}`);
       const data = await res.json();
@@ -209,6 +226,7 @@ async function initFirebase() {
   try {
     const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
     const { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+
     initializeApp(firebaseConfig);
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
